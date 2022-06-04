@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+using Newtonsoft.Json;
 
 /*
 Eine Liste von Vokabeln, eine Lektion
@@ -17,13 +18,19 @@ public class VocabList {
     //Die Liste von Vokabeln
     public List<Word> list = new List<Word>();
 
+    public VocabList(string displayName) {
+        this.displayName = displayName;
+        this.idName = displayName.ToLower().Replace(" ", "_");
+    }
     public VocabList(string idName, string displayName) {
         this.idName = idName;
         this.displayName = displayName;
     }
-    public VocabList(string idName) {
+    [JsonConstructor]
+    public VocabList(string idName, string displayName, List<Word> list) {
         this.idName = idName;
-        this.displayName = idName.ToUpper();
+        this.displayName = displayName;
+        this.list = list;
     }
 
     //Gibt die passende Vokabel anhand des passenden Wortes
