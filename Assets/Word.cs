@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+Eine einzelne Vokabel
+*/
+[System.Serializable]
 public class Word {
-    private string word;
-    private string translation;
+    //Das ursprüngliche Wort
+    public string word;
+    //Die passende Übersetzung
+    public string translation;
 
     public Word(string word, string translation) {
         this.word = word;
@@ -18,6 +24,8 @@ public class Word {
         return this.translation;
     }
 
+    //Hier wird geschaut, ob die eingegebene Übersetzung richtig ist
+    //TODO: Bessere Vergleiche mit Feedback einfügen
     bool IsCorrectTranslation(string translation) {
         return translation.ToLower().Equals(this.translation.ToLower());
     }
