@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using Newtonsoft.Json;
 
@@ -10,7 +11,7 @@ Später werd ich sie löschen
 public class VocabTester : MonoBehaviour
 {
     void Start() {
-        /*
+        
         VocabList list1 = new VocabList("lol", "LöL");
         list1.AddWord(new Word("trrfgd", "o,jmhojnmb"));
 
@@ -28,8 +29,8 @@ public class VocabTester : MonoBehaviour
         VocabListManager.AddList(list3);
 
         VocabListManager.SaveLists();
-        */
-        VocabListManager.LoadLists();
+        
+        //VocabListManager.LoadLists();
         Debug.Log(JsonConvert.SerializeObject(VocabListManager.GetList("englisch_unit_4"), Formatting.Indented));
     }
 }

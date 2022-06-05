@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 /*
 Hier werden alle Vokabeln gespeichert
 */
-public class SaveSystem {
+public static class SaveSystem {
     //Der Ordner, wo alle Vokablellisten gespeichert werden
     //C:\Users\<Benutzer>\AppData\LocalLow\<Entwicklername>\Brocab
     private static string vocabListFolder = Application.persistentDataPath + "/VocabLists";

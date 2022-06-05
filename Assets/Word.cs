@@ -26,7 +26,7 @@ public class Word {
 
     //Hier wird geschaut, ob die eingegebene Übersetzung richtig ist
     //TODO: Bessere Vergleiche mit Feedback einfügen
-    bool IsCorrectTranslation(string translation) {
+    public bool IsCorrectTranslation(string translation) {
         return translation.ToLower().Equals(this.translation.ToLower());
     }
 }
