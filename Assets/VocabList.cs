@@ -9,74 +9,74 @@ Eine Liste von Vokabeln, eine Lektion
 */
 [System.Serializable]
 public class VocabList {
-    //Der interne ID-Name der Liste
-    //Bleibt immer gleich und ist einmalig
-    public readonly string idName;
-    //Der Anzeigename der Liste
-    //Ist veränderbar und kann es mehrmals geben
-    public string displayName;
-    //Die Liste von Vokabeln
-    public List<Word> list = new List<Word>();
+	//Der interne ID-Name der Liste
+	//Bleibt immer gleich und ist einmalig
+	public readonly string idName;
+	//Der Anzeigename der Liste
+	//Ist veränderbar und kann es mehrmals geben
+	public string displayName;
+	//Die Liste von Vokabeln
+	public List<Word> list = new List<Word>();
 
-    public VocabList(string displayName) {
-        this.displayName = displayName;
-        this.idName = displayName.ToLower().Replace(" ", "_");
-    }
-    public VocabList(string idName, string displayName) {
-        this.idName = idName;
-        this.displayName = displayName;
-    }
-    [JsonConstructor]
-    public VocabList(string idName, string displayName, List<Word> list) {
-        this.idName = idName;
-        this.displayName = displayName;
-        this.list = list;
-    }
+	public VocabList(string displayName) {
+		this.displayName = displayName;
+		this.idName = displayName.ToLower().Replace(" ", "_");
+	}
+	public VocabList(string idName, string displayName) {
+		this.idName = idName;
+		this.displayName = displayName;
+	}
+	[JsonConstructor]
+	public VocabList(string idName, string displayName, List<Word> list) {
+		this.idName = idName;
+		this.displayName = displayName;
+		this.list = list;
+	}
 
-    //Gibt die passende Vokabel anhand des passenden Wortes
-    public Word GetWord(string wordName) {
-        foreach(Word currentWord in list) {
-            if(currentWord.GetWord().Equals(wordName)) {
-                return currentWord;
-            }
-        }
+	//Gibt die passende Vokabel anhand des passenden Wortes
+	public Word GetWord(string wordName) {
+		foreach (Word currentWord in list) {
+			if (currentWord.GetWord().Equals(wordName)) {
+				return currentWord;
+			}
+		}
 
-        throw new WordNotFoundException("The word " + wordName + " does not exist");
-    }
+		throw new WordNotFoundException("The word " + wordName + " does not exist");
+	}
 
-    //Fügt eine neue Vokabel zur Liste hinzu
-    public void AddWord(Word word) {
-        if(ContainsWord(word.GetWord())) {
-            throw new WordAlreadyExistsException("The word " + word.GetWord() + " is already in this list");
-        }
+	//Fügt eine neue Vokabel zur Liste hinzu
+	public void AddWord(Word word) {
+		if (ContainsWord(word.GetWord())) {
+			throw new WordAlreadyExistsException("The word " + word.GetWord() + " is already in this list");
+		}
 
-        this.list.Add(word);
-    }
+		this.list.Add(word);
+	}
 
-    public void SetDisplayName(string name) {
-        this.displayName = name;
-    }
-    public string GetDisplayName() {
-        return this.displayName;
-    }
-    public string GetIdName() {
-        return this.idName;
-    }
+	public void SetDisplayName(string name) {
+		this.displayName = name;
+	}
+	public string GetDisplayName() {
+		return this.displayName;
+	}
+	public string GetIdName() {
+		return this.idName;
+	}
 
-    //Schaut, ob ein Wort schon in der Liste enthalten ist
-    public bool ContainsWord(string word) {
-        foreach(Word currentWord in this.list) {
-            if(currentWord.GetWord().Equals(word)) {
-                return true;
-            }
-        }
-        return false;
-    }
+	//Schaut, ob ein Wort schon in der Liste enthalten ist
+	public bool ContainsWord(string word) {
+		foreach (Word currentWord in this.list) {
+			if (currentWord.GetWord().Equals(word)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
 
 public class WordNotFoundException : Exception {
-    public WordNotFoundException(string e) {}
+	public WordNotFoundException(string e) { }
 }
 public class WordAlreadyExistsException : Exception {
-    public WordAlreadyExistsException(string e) {}
+	public WordAlreadyExistsException(string e) { }
 }
