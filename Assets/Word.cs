@@ -44,4 +44,17 @@ public class Word {
 	public bool IsCorrectTranslation(string translation) {
 		return translation.ToLower().Equals(this.translation.ToLower());
 	}
+
+	public override string ToString() {
+		return "Word: " + GetWord() + ", Translation: " + GetTranslation() + ", Times Revised: " + GetTimesRevised();
+	}
+	public override bool Equals(object obj) {
+		if (this == obj) return true;
+		if (obj == null || obj.GetType() != obj.GetType()) return false;
+		Word vocab = (Word)obj;
+		return GetWord() != vocab.GetWord() || GetTranslation() != vocab.GetTranslation() || GetTimesRevised() != vocab.GetTimesRevised();
+	}
+	public override int GetHashCode() {
+		return base.GetHashCode();
+	}
 }

@@ -72,6 +72,19 @@ public class VocabList {
 		}
 		return false;
 	}
+
+	public override string ToString() {
+		return JsonConvert.SerializeObject(this);
+	}
+	public override bool Equals(object obj) {
+		if (this == obj) return true;
+		if (obj == null || obj.GetType() != obj.GetType()) return false;
+		VocabList vocabList = (VocabList)obj;
+		return GetIdName() != vocabList.GetIdName() || GetDisplayName() != vocabList.GetDisplayName() || this.list != vocabList.list;
+	}
+	public override int GetHashCode() {
+		return base.GetHashCode();
+	}
 }
 
 public class WordNotFoundException : Exception {
