@@ -10,8 +10,8 @@ Eine Klasse, die nur zum Testen da ist.
 Später werd ich sie löschen
 */
 public class VocabTester : MonoBehaviour {
+
 	void Start() {
-		
 
 		// Du kannst mal an den Variablen ein bisschen rumprobieren, also sie ändern, dann Unity starten und schauen, was rauskommt
 		// correct ist das Wort, was gewollt ist und actual ist das Wort, was dann eingegeben wurde
