@@ -8,38 +8,51 @@ namespace Brocab.Utility {
 
 		// Vergleicht zwei Strings und gibt Infos über die Unterscheide zurück
 		public static ErrorInfo CheckSimiliarity(string correct, string actual, bool caseSensitive = false) {
+			// Entfernt alle Leerzeichen am Anfang und Ende
 			correct = correct.Trim();
 			actual = actual.Trim();
+
+			// Wenn Groß-/Kleinschreibung ignoriert werden soll, werden beide String zu Kleinbuchstaben konvertiert
 			if (!caseSensitive) {
 				correct = correct.ToLower();
 				actual = actual.ToLower();
 			}
 
 			if (correct.Equals(actual)) {
+				// Wenn die Strings gleich sind, wird zurückgegeben, dass sie übereinstimmen
 				return new ErrorInfo(new int[] { }, ErrorInfo.ErrorType.CORRECT);
 			} else if (correct.RemoveDiacritics() == actual.RemoveDiacritics()) {
+				// Wenn die Strings bis auf die Accents gleich sind, wird das auch zurückgegeben
 				return new ErrorInfo(GetDifferences(correct, actual).ToArray(), ErrorInfo.ErrorType.WRONG_SPECIAL_CHARACTER);
 			}
 
+			// Ansonsten werden alle Unterschiede in eine Liste gepackt
 			List<int> differences = GetDifferences(correct, actual);
-			if (differences.Count < ((correct.Length + 3) / 3)) {
+
+			// Wenn es nicht so viele Fehler sind, wird nur Falsche Rechtschreibung zurückgegeben
+			if (IsAcceptableInaccuracy(correct.Length, differences.Count)) {
 				return new ErrorInfo(differences.ToArray(), ErrorInfo.ErrorType.DIFFERENT_SPELLING);
 			}
 
+			// Ansonsten wird zurückgegeben, dass es komplett falsch ist
 			return new ErrorInfo(differences.ToArray(), ErrorInfo.ErrorType.WRONG);
 		}
 
 		// Vergleicht zwei Strings und gibt eine Liste aller Unterschiede zurück
 		public static List<int> GetDifferences(string correct, string actual) {
+			// Entfernt alle Leerzeichen am Anfang und Ende
 			correct = correct.Trim();
 			actual = actual.Trim();
 
 			List<int> differences = new List<int>();
 
+			// Wenn die Strings gleich sind, wird eine leere Fehlerliste zurückgegeben
 			if (correct == actual) {
 				return differences;
 			}
 
+			// Magie, die selbst ich nicht mehr verstehe (NICHT ANFASSEN!)
+			// Geht durch beide Strings durch und markiert die Unterschiede
 			if (correct.Length >= actual.Length) {
 				for (int i = 0; i < correct.Length; i++) {
 					char character = correct[i];
@@ -65,6 +78,11 @@ namespace Brocab.Utility {
 			return differences;
 		}
 
+		// Gibt anhand der Länge eines Strings und der Anzahl der Fehler an, ob es komplett falsch ist
+		private static bool IsAcceptableInaccuracy(int wordLength, int errorCount) {
+			return errorCount < Mathf.RoundToInt((wordLength + 1) / 3);
+		}
+
 		// Hier sind Infos über den Fehler, der gemacht wurde
 		// Was für einer gemacht wurde und an welchen Stellen im Wort / Satz
 		public class ErrorInfo {
@@ -88,7 +106,7 @@ namespace Brocab.Utility {
 				CORRECT,
 				// Es sind nur einzelne Rechtschreibfehler vorhanden
 				DIFFERENT_SPELLING,
-				// Nur Sonderzeichen wie Accents sind falsch (a anstatt ä und so)
+				// Nur Sonderzeichen wie Accents sind falsch (a anstatt ä oder e anstatt è und so)
 				WRONG_SPECIAL_CHARACTER
 			}
 		}

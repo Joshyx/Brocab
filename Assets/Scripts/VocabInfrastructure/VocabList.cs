@@ -57,12 +57,9 @@ namespace Brocab {
 		public void SetDisplayName(string name) {
 			this.displayName = name;
 		}
-		public string GetDisplayName() {
-			return this.displayName;
-		}
-		public string GetIdName() {
-			return this.idName;
-		}
+		public string GetDisplayName() => this.displayName;
+		public string GetIdName() => this.idName;
+		
 
 		//Schaut, ob ein Wort schon in der Liste enthalten ist
 		public bool ContainsWord(string word) {

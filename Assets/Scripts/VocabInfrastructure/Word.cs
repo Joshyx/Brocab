@@ -23,15 +23,10 @@ namespace Brocab {
 			this.translation = translation;
 		}
 
-		public string GetWord() {
-			return this.word;
-		}
-		public string GetTranslation() {
-			return this.translation;
-		}
-		public int GetTimesRevised() {
-			return this.timesRevised;
-		}
+		public string GetWord() => this.word;
+		public string GetTranslation() => this.translation;
+		public int GetTimesRevised() => this.timesRevised;
+		
 		//Wird aufgerufen, sobald der Nutzer die Vokabel richtig übersetzt hat
 		//Gibt true zurück, wenn er die Vokabel perfekt beherrscht
 		public bool Revise() {
