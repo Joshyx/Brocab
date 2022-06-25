@@ -16,21 +16,45 @@ namespace Brocab {
 		//Der Anzeigename der Liste
 		//Ist veränderbar und kann es mehrmals geben
 		public string displayName;
+		// Die ursprüngliche Sprache der Vokabeln
+		// Sprachecode in ISO 639-1, zB Deutsch = de, Englisch = en, Amerikanisches Englisch = en-us	(https://www.andiamo.co.uk/resources/iso-language-codes/)
+		public string originLanguage;
+		// Die Sprache, in die übersetzt werden muss
+		// Sprachcode in ISO 639-1
+		public string translatedLanguage;
 		//Die Liste von Vokabeln
 		public List<Word> list = new List<Word>();
 
 		public VocabList(string displayName) {
 			this.displayName = displayName;
 			this.idName = displayName.ToLower().Replace(" ", "_");
+			this.originLanguage = "de";
+			this.translatedLanguage = "en";
 		}
-		public VocabList(string idName, string displayName) {
+		public VocabList(string displayName, string idName) {
+			this.displayName = displayName;
+			this.idName = idName;
+			this.originLanguage = "de";
+			this.translatedLanguage = "en";
+		}
+		public VocabList(string displayName, string originLanguage, string translatedLanguage) {
+			this.displayName = displayName;
+			this.idName = displayName.ToLower().Replace(" ", "_");
+			this.originLanguage = originLanguage;
+			this.translatedLanguage = translatedLanguage;
+		}
+		public VocabList(string displayName, string idName, string originLanguage, string translatedLanguage) {
 			this.idName = idName;
 			this.displayName = displayName;
+			this.originLanguage = originLanguage;
+			this.translatedLanguage = translatedLanguage;
 		}
 		[JsonConstructor]
-		public VocabList(string idName, string displayName, List<Word> list) {
+		public VocabList(string displayName, string idName, string originLanguage, string translatedLanguage, List<Word> list) {
 			this.idName = idName;
 			this.displayName = displayName;
+			this.originLanguage = originLanguage;
+			this.translatedLanguage = translatedLanguage;
 			this.list = list;
 		}
 

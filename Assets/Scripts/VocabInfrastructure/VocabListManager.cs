@@ -20,19 +20,31 @@ namespace Brocab {
 			}
 			vocabLists.Add(list);
 		}
-		//Eine Liste anhand des ID-Namens bekmmen
-		public static VocabList GetList(string listName) {
+		//Eine Liste entfernen
+		public static void RemoveList(string listIdName) {
+			if (!ContainsVocabList(listIdName)) {
+				throw new ListNotFoundException("The list " + listIdName + " doesn't exist");
+			}
 			foreach (VocabList list in vocabLists) {
-				if (list.idName.Equals(listName)) {
+				if (list.idName.Equals(listIdName)) {
+					vocabLists.Remove(list);
+					return;
+				}
+			}
+		}
+		//Eine Liste anhand des ID-Namens bekmmen
+		public static VocabList GetList(string listIdName) {
+			foreach (VocabList list in vocabLists) {
+				if (list.idName.Equals(listIdName)) {
 					return list;
 				}
 			}
-			throw new ListNotFoundException("The list " + listName + " doesn't exist");
+			throw new ListNotFoundException("The list " + listIdName + " doesn't exist");
 		}
 		//Gibt an, ob eine Liste überhaupt existiert
-		public static bool ContainsVocabList(string listName) {
+		public static bool ContainsVocabList(string listIdName) {
 			foreach (VocabList list in vocabLists) {
-				if (list.idName.Equals(listName)) {
+				if (list.idName.Equals(listIdName)) {
 					return true;
 				}
 			}
