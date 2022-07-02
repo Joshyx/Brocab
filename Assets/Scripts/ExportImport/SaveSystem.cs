@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Brocab {
 	/*
@@ -12,6 +13,7 @@ namespace Brocab {
 		// Der Ordner, wo alle Vokablellisten gespeichert werden
 		// C:\Users\<Benutzer>\AppData\LocalLow\<Entwicklername>\Brocab
 		private static string vocabListFolder = Application.persistentDataPath + "/VocabLists";
+		private static string settingsFilePath = Application.persistentDataPath + "/settings.brc";
 
 		// Speichert eine Vokabelliste in einer Datei
 		public static void SaveListToFile(VocabList list) {
@@ -46,6 +48,28 @@ namespace Brocab {
 			}
 
 			return vocabLists;
+		}
+
+
+
+		public static Settings LoadSettings() {
+			if (File.Exists(settingsFilePath)) {
+				BinaryFormatter formatter = new BinaryFormatter();
+				FileStream stream = new FileStream(settingsFilePath, FileMode.Open);
+
+				SaveableSettings settings = formatter.Deserialize(stream) as SaveableSettings;
+				stream.Close();
+				return settings.ToSettings();
+			} else {
+				throw new FileNotFoundException("Settings File not found in " + settingsFilePath);
+			}
+		}
+		public static void SaveSettings(Settings settings) {
+			BinaryFormatter formatter = new BinaryFormatter();
+			FileStream stream = new FileStream(settingsFilePath, FileMode.Create);
+
+			formatter.Serialize(stream, new SaveableSettings(settings));
+			stream.Close();
 		}
 	}
 }

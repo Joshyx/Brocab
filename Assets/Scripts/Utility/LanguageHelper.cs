@@ -19,6 +19,19 @@ namespace Brocab.Utility {
             return CultureInfo.CreateSpecificCulture(isoCode);
         }
 
+        public static CultureInfo GetCultureInfoFromString(string s) {
+            try {
+                return GetCultureInfoFromLanguageName(s);
+			} catch(ArgumentException) {
+				try {
+					return GetCultureInfoFromIsoCode(s);
+				} catch {
+                    throw new ArgumentException(s + " is not a valid language name");
+                }
+			}
+
+        }
+
         public static CultureInfo GetUserLanguage() {
             return CultureInfo.CurrentCulture;
         }

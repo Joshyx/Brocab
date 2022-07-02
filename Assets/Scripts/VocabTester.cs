@@ -15,8 +15,6 @@ public class VocabTester : MonoBehaviour {
 
 	void Start() {
 
-		foreach(CultureInfo lang in LanguageHelper.GetMostCommonLanguages()) {
-			Debug.Log(lang.NativeName);
-		}
+		Debug.Log(LanguageHelper.GetCultureInfoFromIsoCode("cvbnfgdh"));
 	}
 }
